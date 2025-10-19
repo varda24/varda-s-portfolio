@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Varda • Portfolio</title>
+  <style>
+    :root{
+      --bg-overlay: rgba(15,18,32,0.8);
+      --card: #14182b;
+      --muted: #9aa3b2;
+      --text: #eaf0ff;
+      --accent: #8aa9ff;
+      --accent-2: #7df0d1;
+      --border: #2a3150;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Noto Sans, Arial; color: var(--text); background: var(--bg-overlay) url('bg.jpg') no-repeat center center fixed; background-size: cover; line-height: 1.6; }
+
+    body::before{
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-overlay);
+      z-index: -1;
+    }
+
+    header{
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(15,18,32,0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .container{ max-width: 1100px; margin: 0 auto; padding: 0 18px; }
+    .nav{ display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+    .brand{ display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .4px; }
+    .brand .dot{ width: 10px; height: 10px; border-radius: 999px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 18px var(--accent); }
+
+    .links{ display: flex; gap: 10px; flex-wrap: wrap; }
+    .links a{ text-decoration: none; color: var(--text); font-weight: 600; padding: 8px 12px; border-radius: 10px; border: 1px solid transparent; }
+    .links a:hover{ border-color: var(--border); background: #12162a; }
+    .cta{ padding: 8px 14px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #0b1220; font-weight: 800; text-decoration: none; }
+
+    .hero{ display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 60px 0 22px; }
+    @media(min-width: 768px){ .hero{ flex-direction: row; text-align: left; gap: 40px; } }
+    .hero img{ width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+    .hero-content{ max-width: 600px; }
+    .hero h1{ margin: 0 0 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; }
+    .hero p{ margin: 0 0 10px; color: var(--muted); max-width: 70ch; }
+    .download-btn{ display: inline-block; margin-top: 10px; padding: 10px 16px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #0b1220; font-weight: 700; text-decoration: none; }
+
+    .grid{ display: grid; gap: 20px; align-items: start; padding: 20px 0 40px; grid-template-columns: 1fr; }
+    @media (min-width: 880px){ .grid{ grid-template-columns: 260px 1fr; } }
+
+    aside{
+      position: sticky; top: 74px; align-self: start; background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: 0 10px 24px rgba(0,0,0,.25); max-height: calc(100vh - 100px); overflow-y: auto;
+    }
+    aside h3{ margin: 0 0 10px; font-size: 18px; }
+    .aside-block{ border-top: 1px dashed var(--border); padding-top: 12px; margin-top: 12px; }
+    .tag{ display: inline-block; padding: 6px 10px; margin: 6px 6px 0 0; border: 1px solid var(--border); border-radius: 999px; font-size: 12px; color: var(--muted); }
+    .muted{ color: var(--muted); font-size: 14px; margin: 6px 0 0; }
+    .btn-lite{ display: inline-block; margin-top: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); text-decoration: none; color: var(--text); }
+    .btn-lite:hover{ background: #161b32; }
+
+    section#highlights{ background: rgba(20,24,43,0.8); border: 1px solid var(--border); border-radius: 18px; padding: 18px; }
+    .section-title{ margin: 0 0 10px; font-size: 22px; }
+
+    .articles{ display: grid; gap: 16px; grid-template-columns: 1fr; }
+    @media (min-width: 680px){ .articles{ grid-template-columns: 1fr 1fr; } }
+
+    article{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; transition: transform .15s ease, box-shadow .2s ease; }
+    article:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    article h3{ margin: 0 0 6px; font-size: 18px; }
+    article p{ margin: 0; color: var(--muted); }
+    .meta{ font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .read{ display: inline-block; margin-top: 10px; text-decoration: none; font-weight: 700; }
+
+    .projects-grid{ display: grid; gap: 16px; grid-template-columns: 1fr; margin-top: 20px; }
+    @media(min-width: 680px){ .projects-grid{ grid-template-columns: 1fr 1fr; } }
+    .project-card{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; transition: transform .15s ease, box-shadow .2s ease; }
+    .project-card:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    .project-card h3{ margin: 0 0 6px; font-size: 18px; }
+    .project-card p{ margin: 0; color: var(--muted); }
+
+    footer{ border-top: 1px solid var(--border); padding: 26px 0; color: var(--muted); font-size: 14px; text-align: center; }
+    footer a{ color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header aria-label="Primary Navigation">
+    <div class="container nav">
+      <div class="brand"><span class="dot"></span> Varda • Portfolio</div>
+      <nav class="links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#highlights">Articles</a>
+        <a class="cta" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="about">
+      <img src="D:\3rd year subject\BC\WhatsApp Image 2025-10-19 at 21.30.14_f25c1e51.jpg" >
+      <div class="hero-content">
+        <h1>Hey, I’m Varda — CSE (AIML) undergrad building clean, useful things for the web.</h1>
+        <p>Focused on classic, reliable engineering: solid HTML/CSS/JS foundations, with practical ML where it actually helps. I like simple UIs that load fast and don’t break.</p>
+        <a class="download-btn" href="C:\Users\dell\Downloads\VARDA KUNDE (3).pdf" download>📄 Download Resume</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <aside>
+        <h3>Quick Info</h3>
+        <p class="muted">Location: India • Open to internships</p>
+
+        <div class="aside-block">
+          <h3>Skills</h3>
+          <span class="tag">Python</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Excel</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">PHP</span>
+        </div>
+
+        <div class="aside-block">
+          <h3>Languages</h3>
+          <span class="tag">Marathi - First</span>
+          <span class="tag">Hindi - Upper Intermediate (B2)</span>
+          <span class="tag">English - Intermediate (B1)</span>
+        </div>
+
+        <div class="aside-block">
+          <h3>Certifications</h3>
+          <a class="btn-lite" href="C:\Certificate\DOC-20250120-WA0009..jpg" target="_blank">OOPs in Java</a>
+          <a class="btn-lite" href="C:\Certificate\Certificate (2).jpg" target="_blank">Power BI</a>
+          <a class="btn-lite" href="C:\Certificate\Certificate.jpg" target="_blank">AI Tools Workshop</a>
+        </div>
+      </aside>
+
+      <section id="highlights">
+        <h2 class="section-title" id="highlights-title">Latest Articles & Notes</h2>
+        <div class="articles">
+          <article>
+            <div class="meta">Aug 2025 </div>
+            <h3>How I structure a clean HTML/CSS project</h3>
+            <p>Folder layout, BEM-ish naming, and tiny CSS utilities that keep things maintainable without frameworks.</p>
+            
+          </article>
+          <article>
+            <div class="meta">Jul 2025 </div>
+            <h3>Debugging CSS like a pro (without losing your mind)</h3>
+            <p>DevTools workflow, isolating issues, and building a mental model of the cascade and layout.</p>
+           
+          </article>
+        </div>
+
+        <div id="projects" class="aside-block">
+          <h2 class="section-title">Projects</h2>
+          <div class="projects-grid">
+            <div class="project-card">
+              <h3>AttendEase</h3>
+              <p>A smart attendance management system with Admin, Teacher, and Student panels. Features automated tracking, monthly compliance reports, and UI optimized for usability.</p>
+            </div>
+            <div class="project-card">
+              <h3>EDA Project</h3>
+              <p>Financial dataset analysis for Tata iQ & Deloitte Australia. Performed EDA and predictive modeling to identify delinquency risk patterns and improve data processing efficiency.</p>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <section class="container" id="contact">
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="muted">Email: <a href="mailto:vardakunde38@gmail.com">vardakunde38@gmail.com</a> • <a href="https://www.linkedin.com/in/varda-kunde-05020a299/" target="_blank">LinkedIn</a></p>
+  </section>
+
+  <footer>
+    <div class="container">© 2025 Varda. All rights reserved.</div>
+  </footer>
+</body>
+</html>
